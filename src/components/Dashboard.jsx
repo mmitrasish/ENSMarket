@@ -49,6 +49,7 @@ class Dashboard extends React.Component {
                   <div
                     className="card has-background-light"
                     style={{ marginBottom: 18 }}
+                    key={i}
                   >
                     <div className="card-content">
                       <div className="level" style={{ minHeight: 48 }}>
