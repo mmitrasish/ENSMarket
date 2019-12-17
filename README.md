@@ -1,4 +1,4 @@
-Link: http://ens-manager-redesigned.herokuapp.com/buy
+Link: http://ens-market.herokuapp.com/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
