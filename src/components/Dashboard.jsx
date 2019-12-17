@@ -1,5 +1,5 @@
 import React from "react";
-import { capitaliseString } from "../utils/store";
+import Store from "../utils/store";
 import SubdomainItem from "./SubdomainItem";
 import { Link } from "react-router-dom";
 
@@ -7,14 +7,51 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      putOnSale: props.myDomains.map(domain => false)
+      putOnSale: [],
+      salePrice: [],
+      firstTimeLoaded: false
     };
   }
+
+  componentDidUpdate() {
+    if (this.props.myDomains.length && !this.state.firstTimeLoaded) {
+      this.setState({
+        putOnSale: this.props.myDomains.map(domain => false),
+        salePrice: this.props.myDomains.map(domain =>
+          domain.price ? domain.price : 0
+        ),
+        firstTimeLoaded: true
+      });
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.myDomains.length && !this.state.firstTimeLoaded) {
+      this.setState({
+        putOnSale: this.props.myDomains.map(domain => false),
+        salePrice: this.props.myDomains.map(domain =>
+          domain.price ? domain.price : 0
+        ),
+        firstTimeLoaded: true
+      });
+    }
+  }
+
+  handleSalePrice = (index, price) => {
+    const salePrice = this.state.salePrice;
+    salePrice[index] = Number.parseFloat(price);
+    this.setState({ salePrice });
+  };
 
   handlePutOnSale = index => {
     const saleBool = this.state.putOnSale;
     saleBool[index] = !saleBool[index];
     this.setState({ putOnSale: saleBool });
+  };
+
+  handleUpdatePrice = (index, domain_name) => {
+    this.setState({ firstTimeLoaded: false });
+    this.props.updateDomainPrice(domain_name, this.state.salePrice[index]);
   };
   render() {
     return (
@@ -26,7 +63,9 @@ class Dashboard extends React.Component {
             </center>
           </div>
           <div>
-            <h2 className="title is-5">{capitaliseString("My subdomains")}</h2>
+            <h2 className="title is-5">
+              {Store.capitaliseString("My subdomains")}
+            </h2>
             <div>
               {this.props.mySubdomains
                 ? this.props.mySubdomains.map((subdomain, i) => (
@@ -43,7 +82,9 @@ class Dashboard extends React.Component {
                 : null}
             </div>
             <div style={{ marginTop: 48 }}>
-              <h2 className="title is-5">{capitaliseString("My domains")}</h2>
+              <h2 className="title is-5">
+                {Store.capitaliseString("My domains")}
+              </h2>
               <div>
                 {this.props.myDomains.map((domain, i) => (
                   <div
@@ -55,8 +96,10 @@ class Dashboard extends React.Component {
                       <div className="level" style={{ minHeight: 48 }}>
                         <div className="level-left">
                           <div style={{ marginRight: 18 }}>
-                            <span class="tag is-info is-medium">
-                              <h2 className="title is-5 has-text-white">{i}</h2>
+                            <span className="tag is-info is-medium">
+                              <h2 className="title is-5 has-text-white">
+                                {i + 1}
+                              </h2>
                             </span>
                           </div>
                           <div>
@@ -74,22 +117,32 @@ class Dashboard extends React.Component {
                               <span className="icon has-text-link is-large">
                                 <i className="fab fa-2x fa-ethereum"></i>
                               </span>
-                              <div class="control" style={{ marginRight: 12 }}>
+                              <div
+                                className="control"
+                                style={{ marginRight: 12 }}
+                              >
                                 <input
-                                  class="input"
-                                  type="text"
+                                  className="input"
+                                  type="number"
                                   placeholder="0"
                                   style={{ maxWidth: 100 }}
+                                  value={this.state.salePrice[i]}
+                                  onChange={e =>
+                                    this.handleSalePrice(i, e.target.value)
+                                  }
                                 />
                               </div>
                               <button
-                                class="button is-link"
+                                className="button is-link"
                                 style={{ marginRight: 12 }}
+                                onClick={e =>
+                                  this.handleUpdatePrice(i, domain.domain_name)
+                                }
                               >
                                 Confirm
                               </button>
                               <button
-                                class="button is-danger"
+                                className="button is-danger"
                                 onClick={e => this.handlePutOnSale(i)}
                               >
                                 Cancel
@@ -99,7 +152,7 @@ class Dashboard extends React.Component {
                             <div className="level-item">
                               {!domain.on_sale ? (
                                 <button
-                                  class="button is-danger"
+                                  className="button is-danger"
                                   style={{ marginRight: 12 }}
                                   onClick={e => this.handlePutOnSale(i)}
                                 >
@@ -136,7 +189,7 @@ class Dashboard extends React.Component {
 
                               <Link
                                 to={`/domain/${domain.domain_name}`}
-                                class="button is-link"
+                                className="button is-link"
                               >
                                 Manage
                               </Link>

@@ -1,11 +1,41 @@
 import React from "react";
-import { shortenEthAddr } from "../utils/store";
+import Store from "../utils/store";
 import { Link } from "react-router-dom";
+import Web3Service from "../utils/web3";
+import ShowBuyingModal from "./ShowBuyingModal";
 
 const SubdomainItem = props => {
+  const [openBuying, setOpenBuying] = React.useState(false);
+  const buySubdomain = async () => {
+    if (props.buyable) {
+      setOpenBuying(true);
+      const info = await Web3Service.checkDomain(
+        props.domain,
+        props.subdomainName.split(".")[0]
+      );
+      const tx = await Web3Service.buySubdomain(
+        props.domain,
+        props.subdomainName.split(".")[0],
+        props.address,
+        info
+      );
+    }
+  };
+  const closeOpenBuying = () => {
+    setOpenBuying(false);
+  };
   return (
     <div className="card has-background-light" style={{ marginBottom: 18 }}>
-      <div className="card-content">
+      {props.buyable ? (
+        <ShowBuyingModal
+          open={openBuying}
+          subdomain={
+            props.subdomainName.split(".")[0] + "." + props.domain.domain_name
+          }
+          close={closeOpenBuying}
+        />
+      ) : null}
+      <div className="card-content" onClick={buySubdomain}>
         <div className="level">
           <div className="level-left">
             <div>
@@ -24,7 +54,7 @@ const SubdomainItem = props => {
               ) : null}
 
               <h2 className="subtitle is-6">
-                <strong>Owner:</strong> {shortenEthAddr(props.owner)}
+                <strong>Owner:</strong> {Store.shortenEthAddr(props.owner)}
               </h2>
             </div>
           </div>

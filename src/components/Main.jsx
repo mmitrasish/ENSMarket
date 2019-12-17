@@ -1,6 +1,7 @@
 import React from "react";
 import SubdomainItem from "./SubdomainItem";
 import LeaderboardItem from "./LeaderboardItem";
+import BuySubdomainModal from "./BuySubdomainModal";
 
 const Main = props => {
   const [subdomain, setSubdomain] = React.useState("");
@@ -10,6 +11,8 @@ const Main = props => {
   const [loading, setLoading] = React.useState(false);
   const [validSubdomain, setValidSubdomain] = React.useState(false);
   const [leaderboardList, setLeaderboardList] = React.useState([]);
+  const [openBuyModal, setOpenBuyModal] = React.useState(false);
+  const [selectedDomain, setSelectedDomain] = React.useState({});
 
   const handleSubdomainChange = e => {
     setLoading(true);
@@ -22,8 +25,11 @@ const Main = props => {
         ...domain,
         subdomain_name: subdomain + "." + domain.domain_name
       }));
-      setSubdomainList(newSubdomains);
-      setFilteredSubdomainList(newSubdomains);
+      const newSubdomainFiltered = newSubdomains.filter(
+        subdomain => subdomain.on_sale
+      );
+      setSubdomainList(newSubdomainFiltered);
+      setFilteredSubdomainList(newSubdomainFiltered);
       setValidSubdomain(true);
     } else {
       setSubdomainList([]);
@@ -31,6 +37,15 @@ const Main = props => {
       setValidSubdomain(false);
     }
     setLoading(false);
+  };
+
+  const openBuySubdomainModal = (open, domain) => {
+    setSelectedDomain(domain);
+    setOpenBuyModal(open);
+  };
+
+  const closeBuySubdomainModal = () => {
+    setOpenBuyModal(false);
   };
 
   const handleFilterDomainText = e => {
@@ -51,17 +66,43 @@ const Main = props => {
       const sortedDomain = props.domains.sort((a, b) => {
         return b.subdomains.length - a.subdomains.length;
       });
-      setLeaderboardList(sortedDomain);
+      const onSaleDomains = sortedDomain.filter(domain => domain.on_sale);
+      setLeaderboardList(onSaleDomains);
     }
   }, [props]);
+
+  const sortByPrice = () => {
+    if (props.domains !== undefined) {
+      const sortedDomain = subdomainList.sort((a, b) => {
+        return b.price - a.price;
+      });
+      const onSaleDomains = sortedDomain.filter(domain => domain.on_sale);
+      setFilteredSubdomainList(onSaleDomains);
+    }
+  };
+  const sortByPopularity = () => {
+    if (props.domains !== undefined) {
+      const sortedDomain = subdomainList.sort((a, b) => {
+        return b.subdomains.length - a.subdomains.length;
+      });
+      const onSaleDomains = sortedDomain.filter(domain => domain.on_sale);
+      setFilteredSubdomainList(onSaleDomains);
+    }
+  };
   return (
     <section className="section">
       <div className="container">
+        <BuySubdomainModal
+          domain={selectedDomain}
+          open={openBuyModal}
+          close={closeBuySubdomainModal}
+          address={props.userAddress}
+        />
         <div className="columns" style={{ marginBottom: 24 }}>
           <div className="column is-three-fifths is-offset-one-fifth">
             <div
               className={
-                "control is-medium has-icons-left  has-icons-right " +
+                "control is-medium has-icons-left has-icons-right " +
                 (loading ? "is-loading" : null)
               }
             >
@@ -76,8 +117,8 @@ const Main = props => {
                 <i className="fas fa-search"></i>
               </span>
               {validSubdomain ? (
-                <span class="icon is-medium is-right has-text-success">
-                  <i class="fas fa-check"></i>
+                <span className="icon is-medium is-right has-text-success">
+                  <i className="fas fa-check"></i>
                 </span>
               ) : null}
             </div>
@@ -125,8 +166,12 @@ const Main = props => {
                       role="menu"
                     >
                       <div className="dropdown-content">
-                        <div className="dropdown-item">Popularity</div>
-                        <div className="dropdown-item">Price</div>
+                        <a className="dropdown-item" onClick={sortByPopularity}>
+                          Popularity
+                        </a>
+                        <a className="dropdown-item" onClick={sortByPrice}>
+                          Price
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -137,12 +182,15 @@ const Main = props => {
               {filteredSubdomainList.map((subdomain, i) => (
                 <SubdomainItem
                   subdomainName={subdomain.subdomain_name}
+                  domain={subdomain}
+                  address={props.userAddress}
                   domainName={subdomain.domain_name}
                   owner={subdomain.owner}
                   price={subdomain.price}
                   removePrice={false}
                   removeParent={false}
                   subdomainPrepared={true}
+                  buyable={true}
                   key={i}
                 />
               ))}
@@ -158,7 +206,12 @@ const Main = props => {
             </div>
             <div>
               {leaderboardList.map((domain, i) => (
-                <LeaderboardItem domain={domain} index={i + 1} key={i} />
+                <LeaderboardItem
+                  domain={domain}
+                  index={i + 1}
+                  setOpenBuyModal={openBuySubdomainModal}
+                  key={i}
+                />
               ))}
             </div>
           </div>

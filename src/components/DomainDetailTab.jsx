@@ -3,12 +3,6 @@ import makeBlockie from "ethereum-blockies-base64";
 import ReactTooltip from "react-tooltip";
 
 const DomainDetailTab = props => {
-  console.log(
-    props.userAddress.toLowerCase() !== props.domain.controller.toLowerCase() ||
-      !props.userAddress,
-    props.userAddress,
-    props.domain.controller
-  );
   return (
     <div>
       <div className="columns details_column">
@@ -28,7 +22,7 @@ const DomainDetailTab = props => {
           </div>
           <div className="column">
             <div className="align_center">
-              <figure class="image is-32x32" style={{ marginRight: 12 }}>
+              <figure className="image is-32x32" style={{ marginRight: 12 }}>
                 <img
                   src={makeBlockie(props.domain.registrant)}
                   alt="controller"
@@ -49,7 +43,7 @@ const DomainDetailTab = props => {
         <div className="column is-7">
           <div className="align_center">
             {props.domain.controller ? (
-              <figure class="image is-32x32" style={{ marginRight: 12 }}>
+              <figure className="image is-32x32" style={{ marginRight: 12 }}>
                 <img
                   src={makeBlockie(props.domain.controller)}
                   alt="controller"
@@ -68,8 +62,10 @@ const DomainDetailTab = props => {
             data-tip
             data-for="transferController"
             disabled={
-              props.userAddress.toLowerCase() !==
-                props.domain.controller.toLowerCase() || !props.userAddress
+              props.userAddress
+                ? props.userAddress.toLowerCase() !==
+                    props.domain.controller.toLowerCase() || !props.userAddress
+                : true
             }
           >
             Transfer
@@ -81,10 +77,12 @@ const DomainDetailTab = props => {
             place="bottom"
           >
             <span>
-              {props.userAddress.toLowerCase() !==
-                props.domain.controller.toLowerCase() || !props.userAddress
-                ? "You can only tranfer the controller only if you are the controller or registrant and you are logged into your wallet"
-                : "Click here to transfer controller"}
+              {props.userAddress
+                ? props.userAddress.toLowerCase() !==
+                    props.domain.controller.toLowerCase() || !props.userAddress
+                  ? "You can only tranfer the controller only if you are the controller or registrant and you are logged into your wallet"
+                  : "Click here to transfer controller"
+                : "You have not looged in with your wallet"}
             </span>
           </ReactTooltip>
         </div>
@@ -111,7 +109,7 @@ const DomainDetailTab = props => {
         <div className="column is-7">
           <div className="align_center">
             {props.domain.resolver ? (
-              <figure class="image is-32x32" style={{ marginRight: 12 }}>
+              <figure className="image is-32x32" style={{ marginRight: 12 }}>
                 <img
                   src={makeBlockie(props.domain.resolver)}
                   alt="controller"
@@ -132,8 +130,10 @@ const DomainDetailTab = props => {
             data-tip
             data-for="setResolver"
             disabled={
-              props.userAddress.toLowerCase() !==
-                props.domain.controller.toLowerCase() || !props.userAddress
+              props.userAddress
+                ? props.userAddress.toLowerCase() !==
+                    props.domain.controller.toLowerCase() || !props.userAddress
+                : true
             }
           >
             Set
@@ -145,10 +145,12 @@ const DomainDetailTab = props => {
             place="bottom"
           >
             <span>
-              {props.userAddress.toLowerCase() !==
-                props.domain.controller.toLowerCase() || !props.userAddress
-                ? "You can set the resolver only if you are the controller or registrant and you are logged into your wallet"
-                : "Click here to set a resolver"}
+              {props.userAddress
+                ? props.userAddress.toLowerCase() !==
+                    props.domain.controller.toLowerCase() || !props.userAddress
+                  ? "You can only tranfer the controller only if you are the controller or registrant and you are logged into your wallet"
+                  : "Click here to transfer controller"
+                : "You have not looged in with your wallet"}
             </span>
           </ReactTooltip>
         </div>

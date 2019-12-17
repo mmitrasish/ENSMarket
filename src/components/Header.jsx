@@ -27,7 +27,7 @@ const Header = props => {
             >
               <img src={ensLogo} alt="ens logo" />
             </figure>
-            <h2 className="title has-text-dark">ENS</h2>
+            <h2 className="title has-text-dark">ENS Market</h2>
           </div>
         </Link>
         <a
@@ -74,14 +74,14 @@ const Header = props => {
           <div className="navbar-item">
             {!props.userAddress ? (
               <button
-                class="button is-light"
+                className="button is-light"
                 style={{ backgroundColor: "#c1c1c1" }}
                 disabled
               >
                 Dashboard
               </button>
             ) : (
-              <Link to="/dashboard" class="button is-link">
+              <Link to="/dashboard" className="button is-link">
                 Dashboard
               </Link>
             )}
