@@ -54,7 +54,7 @@ class Web3Service {
       registration_date: "2020.05.04 at 05:30",
       parent: "eth",
       on_sale: true,
-      price: 0.5,
+      price: 1,
       subdomains: [
         {
           subdomain_name: "mrfixpixdfj",
@@ -79,19 +79,31 @@ class Web3Service {
       ]
     },
     {
-      domain_name: "rekpero.eth",
+      domain_name: "isfund.eth",
       parent: "eth",
       registration_date: "2019.03.08 at 13:35",
-      on_sale: false,
-      price: 0.8,
-      owner: "0xa7B5B93BF8B322023BDa57e2C86B57f4DDb4F4a1",
-      controller: "0xa7B5B93BF8B322023BDa57e2C86B57f4DDb4F4a1",
-      registrant: "0xa7B5B93BF8B322023BDa57e2C86B57f4DDb4F4a1",
+      on_sale: true,
+      price: 0.03,
+      owner: "0xC32659651D137A18b79925449722855aA327231d",
+      controller: "0xC32659651D137A18b79925449722855aA327231d",
+      registrant: "0xC32659651D137A18b79925449722855aA327231d",
       resolver: "0xD4fC014343cd971B7eb70732021E26dk5B744cf4",
       subdomains: []
     },
     {
       domain_name: "lifeofpie.eth",
+      parent: "eth",
+      registration_date: "2019.12.12 at 21:12",
+      on_sale: false,
+      price: 1,
+      owner: "0xa7B5B93BF8B322023BDa57e2C86B57f4DDb4F4a1",
+      controller: "0xa7B5B93BF8B322023BDa57e2C86B57f4DDb4F4a1",
+      registrant: "0xa7B5B93BF8B322023BDa57e2C86B57f4DDb4F4a1",
+      resolver: "0x2dfC014343cd971Bfdb70732021E26dk5B744csd",
+      subdomains: []
+    },
+    {
+      domain_name: "rekpero.eth",
       parent: "eth",
       registration_date: "2019.12.12 at 21:12",
       on_sale: false,
@@ -118,6 +130,7 @@ class Web3Service {
       resolverAddress,
       value
     ) => {
+      console.log(value);
       return domain.contract.register(
         "0x" + sha3(domain.domain_name.split(".")[0]),
         subdomain,
@@ -171,6 +184,7 @@ class Web3Service {
   };
 
   buySubdomain = async (domain, subdomain, account, info) => {
+    console.log(info);
     var tx = await this.registrarVersions.register(
       domain,
       subdomain,

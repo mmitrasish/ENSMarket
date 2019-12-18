@@ -17,7 +17,7 @@ const SubdomainItem = props => {
         props.domain,
         props.subdomainName.split(".")[0],
         props.address,
-        info
+        info[1]
       );
     }
   };

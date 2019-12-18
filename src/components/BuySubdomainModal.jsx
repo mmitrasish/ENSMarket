@@ -22,10 +22,11 @@ const BuySubdomainModal = props => {
   };
 
   const buySubdomain = async () => {
+    props.close();
     setOpenBuying(true);
     const info = await Web3Service.checkDomain(props.domain, subdomainText);
     console.log(info);
-    console.log(props.address);
+    // console.log(new BN(props.domain.price));
     const tx = await Web3Service.buySubdomain(
       props.domain,
       subdomainText,
