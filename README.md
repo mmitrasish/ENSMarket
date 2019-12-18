@@ -20,14 +20,8 @@ Link: http://ens-market.herokuapp.com/
 
 ## Features
 
-- rDAI - reedemable money, which tokenizes different assests into a single interest token "rDAI"
-- User have option of multiple tokens, to contribute with...
-- It supports two lending protocols, Aave and Compound.
 
-To-do list:
 
-- Make a user dashboard, where user can manage multiple hats.
-- DAO which will recognize the contributors on certain levels.
 
 ## Status
 
