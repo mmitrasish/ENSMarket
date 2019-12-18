@@ -11,6 +11,9 @@
 # production
 /build
 
+#important
+/src/utils/web3.js
+
 # misc
 .DS_Store
 .env.local

@@ -4,7 +4,6 @@ import subdomainregistrar_artifacts from "../contracts/EthRegistrarSubdomainRegi
 import ens_artifacts from "../contracts/ENS.json";
 import { keccak_256 as sha3 } from "js-sha3";
 import { default as namehash } from "eth-ens-namehash";
-import Store from "./store.js";
 
 const referrerAddress = "0x0904Dac3347eA47d208F3Fd67402D039a3b99859";
 
@@ -13,39 +12,6 @@ const ENS = contract(ens_artifacts);
 
 class Web3Service {
   allDomains = [
-    {
-      domain_name: "gitcoin.eth",
-      owner: "0x5d2629a9E885C5F0D558d6fE28A1f856ABdBDD54",
-      controller: "0x5d2629a9E885C5F0D558d6fE28A1f856ABdBDD54",
-      registrant: "0x4331B095bC38Dc3bCE0A269682b5eBAefa252929",
-      registration_date: "2017.06.01 at 07:24",
-      resolver: "0x5FfC014343cd971B7eb70732021E26C35B744cc4",
-      parent: "eth",
-      on_sale: true,
-      price: 0,
-      subdomains: [
-        {
-          subdomain_name: "mrfixpix",
-          owner: "0x4eb28aBeb3c6a60C802A5628d3397C4449A842a5",
-          registration_date: "2017.06.04 at 12:46"
-        },
-        {
-          subdomain_name: "serkansokmen",
-          owner: "0x4eb28aBeb3c6a60C802A5628d3397C4449A842a5",
-          registration_date: "2017.06.08 at 13:36"
-        },
-        {
-          subdomain_name: "mumuss",
-          owner: "0xE163258542040394b184C4C166c420eC40f1c222",
-          registration_date: "2017.06.12 at 18:34"
-        },
-        {
-          subdomain_name: "jkerskr",
-          registration_date: "2019.09.14 at 10:47",
-          owner: "0xa7B5B93BF8B322023BDa57e2C86B57f4DDb4F4a1"
-        }
-      ]
-    },
     {
       domain_name: "etherbase.eth",
       owner: "0xDDF369C3bf18b1B12EA295d597B943b955eF4671",
@@ -88,14 +54,35 @@ class Web3Service {
       controller: "0xC32659651D137A18b79925449722855aA327231d",
       registrant: "0xC32659651D137A18b79925449722855aA327231d",
       resolver: "0xD4fC014343cd971B7eb70732021E26dk5B744cf4",
-      subdomains: []
+      subdomains: [
+        {
+          subdomain_name: "mrfixpix",
+          owner: "0x4eb28aBeb3c6a60C802A5628d3397C4449A842a5",
+          registration_date: "2017.06.04 at 12:46"
+        },
+        {
+          subdomain_name: "serkansokmen",
+          owner: "0x4eb28aBeb3c6a60C802A5628d3397C4449A842a5",
+          registration_date: "2017.06.08 at 13:36"
+        },
+        {
+          subdomain_name: "mumuss",
+          owner: "0xE163258542040394b184C4C166c420eC40f1c222",
+          registration_date: "2017.06.12 at 18:34"
+        },
+        {
+          subdomain_name: "jkerskr",
+          registration_date: "2019.09.14 at 10:47",
+          owner: "0xa7B5B93BF8B322023BDa57e2C86B57f4DDb4F4a1"
+        }
+      ]
     },
     {
-      domain_name: "lifeofpie.eth",
+      domain_name: "thecryptoguy.eth",
       parent: "eth",
       registration_date: "2019.12.12 at 21:12",
       on_sale: false,
-      price: 1,
+      price: 0.02,
       owner: "0xa7B5B93BF8B322023BDa57e2C86B57f4DDb4F4a1",
       controller: "0xa7B5B93BF8B322023BDa57e2C86B57f4DDb4F4a1",
       registrant: "0xa7B5B93BF8B322023BDa57e2C86B57f4DDb4F4a1",
@@ -103,11 +90,11 @@ class Web3Service {
       subdomains: []
     },
     {
-      domain_name: "rekpero.eth",
+      domain_name: "trustnobank.eth",
       parent: "eth",
       registration_date: "2019.12.12 at 21:12",
       on_sale: false,
-      price: 1,
+      price: 0.01,
       owner: "0xa7B5B93BF8B322023BDa57e2C86B57f4DDb4F4a1",
       controller: "0xa7B5B93BF8B322023BDa57e2C86B57f4DDb4F4a1",
       registrant: "0xa7B5B93BF8B322023BDa57e2C86B57f4DDb4F4a1",

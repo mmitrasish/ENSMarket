@@ -58,7 +58,7 @@ const DomainDetails = props => {
             </div>
           </section>
           <main className="section">
-            <div class="container">
+            <div className="container">
               {currentTab === 0 ? (
                 <DomainDetailTab
                   domain={domain}
