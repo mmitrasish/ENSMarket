@@ -22,7 +22,7 @@ class Web3Service {
       resolver: "0x5FfC014343cd971B7eb70732021E26C35B744cc4",
       parent: "eth",
       on_sale: true,
-      price: 5,
+      price: 0,
       subdomains: [
         {
           subdomain_name: "mrfixpix",
@@ -54,7 +54,7 @@ class Web3Service {
       registration_date: "2020.05.04 at 05:30",
       parent: "eth",
       on_sale: true,
-      price: 1,
+      price: 0,
       subdomains: [
         {
           subdomain_name: "mrfixpixdfj",
