@@ -17,23 +17,33 @@ Link: http://ens-market.herokuapp.com/
 ### Screenshots
 
 
+### Features
+* Management dashboard for listed (sold/unsold) subdomains for the Domain Owner.
+* Let subdomain owner submit the authority of their domain, fix a price for their subdomain and sell it.
+* A Sub Domain Leaderboard / stats page
+* Filtering Options for Subdomains. (By Price, By Popularity, By subdomain name) 
+* Add Favourites
 
-## Features
 
-
-
-
-## Status
+### Status
 
 Project is: _in progress_
 
-## Inspiration
+### Inspiration
+
+[Eric](https://twitter.com/econoar) Founder@EthHub 
+![](screenshots/ens1.png)
+
+[Nick](https://twitter.com/nicksdjohnson) Founder@ENS
+![](screenshots/ens2.png)
+
+[Peter](https://twitter.com/pet3rpan_) Founder@Metacartel
+![](screenshots/ens3.png)
 
 
-
-## Creators
+### Creators
 
 - [@CryptoCrat](https://twitter.com/CryptoCrat7)
-- [@rekspero](https://twitter.com/CryptoCrat7)
+- [@rekspero](https://twitter.com/mitramukh)
 
 * feel free to contact us!
