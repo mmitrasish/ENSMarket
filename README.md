@@ -45,5 +45,5 @@ Project is: _in progress_
 
 - [@CryptoCrat](https://twitter.com/CryptoCrat7)
 - [@rekspero](https://twitter.com/mitramukh)
-
+- [@Man-Jain](https://twitter.com/manankpatni)
 * feel free to contact us!
